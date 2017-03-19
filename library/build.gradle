@@ -36,4 +36,10 @@ dependencies {
     compile("com.github.hkokocin.atheris:androidkit:0.3-SNAPSHOT") { changing true }
 }
 
+if (System.getenv("CI") == "true") {
+    ext."signing.keyId" = System.getenv("SIGNING_KEY")
+    ext."signing.password" = System.getenv("SIGNING_PASSWORD")
+    ext."signing.secretKeyRingFile" = "../secring.gpg"
+}
+
 apply from: '../mvn-push.gradle'
