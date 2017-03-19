@@ -12,7 +12,7 @@ jdk:
 branches:
   only:
   - master
-  - stable
+  - develop
 before_script:
 - openssl aes-256-cbc -K $encrypted_48b404373410_key -iv $encrypted_48b404373410_iv
   -in secring.gpg.enc -out secring.gpg -d
