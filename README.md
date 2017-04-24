@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.org/hkokocin/WidgetAdapter.svg?branch=master)](https://travis-ci.org/hkokocin/WidgetAdapter)
 # WidgetAdapter
-This is a small library that eases the managent of adapters for ```RecyclerViews``` especially if you use different view types. It is written in Kotlin and intended to be used in Kotlin since it relies on some of its syntactic sugar.
+This is a small library that eases the management of adapters for ```RecyclerView```s especially if you use different item view types. It is written in Kotlin and intended to be used in Kotlin since it relies on some of its syntactic sugar.
 ## Install
 ## Usage
-All you need for the WidgetAdapter is a ```LayoutInflater``` and a set of providers that instantiate new instances of your widgets. Widgets are your views that are wrapped by implementations of the ```Widget<T>``` interface.
+All you need for the WidgetAdapter is a ```LayoutInflater``` and a set of providers that instantiate your ```Widget```s. ```Widget```s are your views that are wrapped by implementations of the ```Widget<T>``` interface.
 ### Create a WidgetAdapter
 ```kotlin
 val adapter = WidgetAdapter(LayoutInflater.from(context))
@@ -13,7 +13,7 @@ recyclerView.adapter = adapter
 ```
 Of course it would be a good practise to inject the adapter and the providers through the DI mechanism of your choice. 
 ### Create a Widget
-Your item views have to be mapped into ```Widget```s for the ```WidgetAdapter``` to match data types and view types. It uses ```setData(data: T)``` to update the data of a widget. Keep in mind, that your widget might have been recycled and you might have to clean your view from its previous state.
+Your item views have to be mapped into ```Widget```s for the ```WidgetAdapter``` to match data types and view types. It uses ```setData(data: T)``` to update the data of a ```Widget```. Keep in mind, that your ```Widget``` might have been recycled and you might have to clean your view from its previous state.
 ```kotlin
 class YourWidget: Widget<String>{
     override val events = EventDispatcher()
