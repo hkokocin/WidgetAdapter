@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/hkokocin/WidgetAdapter.svg?branch=master)](https://travis-ci.org/hkokocin/WidgetAdapter)
+[![Build Status](https://travis-ci.org/WeltN24/WidgetAdapter.svg?branch=master)](https://travis-ci.org/WeltN24/WidgetAdapter)
 # WidgetAdapter
 This is a small library that eases the management of adapters for ```RecyclerView```s especially if you use different item view types. It is written in Kotlin and intended to be used in Kotlin since it relies on some of its syntactic sugar.
 ## Install
