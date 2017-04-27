@@ -1,9 +1,9 @@
-package com.github.hkokocin.widgetadapter
+package de.welt.widgetadapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.github.hkokocin.widgetadapter.EventDispatcher
+import de.welt.widgetadapter.EventDispatcher
 
 class WidgetViewHolderProvider<T, W : Widget<T>>(
         private val inflater: LayoutInflater,

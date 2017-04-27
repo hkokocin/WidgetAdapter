@@ -1,4 +1,4 @@
-package com.github.hkokocin.widgetadapter
+package de.welt.widgetadapter
 
 import java.util.*
 import kotlin.reflect.KClass

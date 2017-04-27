@@ -1,9 +1,9 @@
-package com.github.hkokocin.widgetadapter
+package de.welt.widgetadapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.hkokocin.widgetadapter.EventDispatcher
+import de.welt.widgetadapter.EventDispatcher
 
 interface Widget<T> {
 

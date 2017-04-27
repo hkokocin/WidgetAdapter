@@ -1,4 +1,4 @@
-package com.github.hkokocin.widgetadapter
+package de.welt.widgetadapter
 
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView

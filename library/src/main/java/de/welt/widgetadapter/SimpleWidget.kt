@@ -1,4 +1,4 @@
-package com.github.hkokocin.widgetadapter
+package de.welt.widgetadapter
 
 import android.content.Context
 import android.content.res.Resources
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.github.hkokocin.androidkit.app.getResource
 import com.github.hkokocin.androidkit.content.getColorInt
-import com.github.hkokocin.widgetadapter.Widget
+import de.welt.widgetadapter.Widget
 import kotlin.reflect.KClass
 
 abstract class SimpleWidget<T>(private val layout: Int) : Widget<T> {
