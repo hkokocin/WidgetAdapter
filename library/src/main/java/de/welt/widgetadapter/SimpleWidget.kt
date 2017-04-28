@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.github.hkokocin.androidkit.app.getResource
 import com.github.hkokocin.androidkit.content.getColorInt
-import de.welt.widgetadapter.Widget
 import kotlin.reflect.KClass
 
 abstract class SimpleWidget<T>(private val layout: Int) : Widget<T> {
@@ -26,16 +25,16 @@ abstract class SimpleWidget<T>(private val layout: Int) : Widget<T> {
         contentView.findViewById(resourcesId) as T
     }
 
-    @Suppress("UNCHECKED_CAST")
+    inline fun <reified T : Any> resourceId(resourcesId: Int) = lazy {
+        getResource(resourcesId, T::class)
+    }
+
     fun colorResource(resourcesId: Int, theme: Resources.Theme? = null) = lazy {
         resources.getColorInt(resourcesId, theme)
     }
 
-    fun <T : Any> resourceId(resourcesId: Int, type: KClass<T>) = lazy {
-        getResource(resources, resourcesId, type)
-    }
+    fun <T : Any> getResource(resourcesId: Int, type: KClass<T>) = getResource(resources, resourcesId, type)
 
-    @Suppress("UNCHECKED_CAST")
     fun dimensionInPixels(resourcesId: Int) = lazy {
         resources.getDimensionPixelSize(resourcesId)
     }

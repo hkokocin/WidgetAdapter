@@ -34,6 +34,17 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "com.android.support:recyclerview-v7:25.2.0"
     compile("com.github.hkokocin:androidkit:0.4-SNAPSHOT") { changing true }
+
+    testCompile "junit:junit:4.12"
+    testCompile "org.mockito:mockito-inline:2.7.19"
+    testCompile("com.nhaarman:mockito-kotlin:1.4.0") {
+        exclude module: "kotlin-stdlib"
+        exclude module: "mockito-core"
+    }
+
+    testCompile("com.winterbe:expekt:0.5.0") {
+        exclude module: "kotlin-stdlib"
+    }
 }
 
 if (System.getenv("CI") == "true") {
