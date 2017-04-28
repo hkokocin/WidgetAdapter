@@ -88,7 +88,7 @@ class SimpleWidgetTest {
     fun canRetrieveColorResource() {
         classToTest.createView(inflater, container)
         given(resources.getColorInt(4, null)).willReturn(123)
-CharS
+
         val color = classToTest.initColor()
 
         color.should.be.equal(123)
