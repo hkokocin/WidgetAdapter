@@ -1,5 +1,8 @@
 package de.welt.widgetadapter
 
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.eq
+import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.same
 import com.nhaarman.mockito_kotlin.then
@@ -18,20 +21,29 @@ internal class SimpleDiffCallbackTest {
     val classToTest = SimpleDiffCallback(newItems, oldItems, areItemsTheSame)
 
     @Test
-    fun canGetOldListSize() = classToTest.oldListSize.should.be.equal(1)
+    fun canGetOldListSize() {
+        classToTest.oldListSize.should.be.equal(1)
+    }
 
     @Test
-    fun canGetNewListSize() = classToTest.newListSize.should.be.equal(1)
+    fun canGetNewListSize() {
+        classToTest.newListSize.should.be.equal(1)
+    }
 
     @Test
-    fun doSimpleEqualsCheckToDetermineIfContentsAreTheSame() = classToTest.areItemsTheSame(0, 0).should.be.equal(true)
+    fun doSimpleEqualsCheckToDetermineIfContentsAreTheSame() {
+        given(areItemsTheSame.invoke(eq(classToTest), any(), any())).willReturn(true)
+
+        classToTest.areItemsTheSame(0, 0).should.be.equal(true)
+    }
 
     @Test
     fun useCallbackToDetermineIfItemsAreTheSame() {
+        given(areItemsTheSame.invoke(eq(classToTest), any(), any())).willReturn(true)
+
         classToTest.areItemsTheSame(0, 0)
-        
+
         then(areItemsTheSame).should().invoke(same(classToTest)!!, same(oldItem)!!, same(newItem)!!)
     }
-
-
 }
+
