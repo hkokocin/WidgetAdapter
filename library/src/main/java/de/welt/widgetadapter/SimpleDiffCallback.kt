@@ -8,24 +8,13 @@ class SimpleDiffCallback(
         val areItemsTheSame: SimpleDiffCallback.(Any, Any) -> Boolean
 ) : DiffUtil.Callback() {
 
-    override fun areItemsTheSame(
-            oldItemPosition: Int,
-            newItemPosition: Int): Boolean {
-
-        val newItem = newItems[newItemPosition]
-        val oldItem = oldItems[oldItemPosition]
-
-        return areItemsTheSame(oldItem, newItem)
-    }
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+        areItemsTheSame(oldItems[oldItemPosition], newItems[newItemPosition])
 
     override fun getOldListSize() = oldItems.size
 
     override fun getNewListSize() = newItems.size
 
-    override fun areContentsTheSame(
-            oldItemPosition: Int,
-            newItemPosition: Int): Boolean {
-
-        return newItems[newItemPosition] == oldItems[oldItemPosition]
-    }
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+        newItems[newItemPosition] == oldItems[oldItemPosition]
 }
