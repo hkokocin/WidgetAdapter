@@ -20,7 +20,7 @@ branches:
 before_script: openssl aes-256-cbc -K $encrypted_d89d1ce6e9a7_key -iv $encrypted_d89d1ce6e9a7_iv -in secring.gpg.enc -out secring.gpg -d
 
 script:
-- ./gradlew clean build uploadArchives
+- ./gradlew clean build uploadArchives --info
 
 env:
   global:
