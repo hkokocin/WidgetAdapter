@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/WeltN24/WidgetAdapter.svg?branch=master)](https://travis-ci.org/WeltN24/WidgetAdapter)
-[![Maven Central](https://img.shields.io/maven-central/v/de.welt/widgetadapter.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22de.welt%22%20AND%20a%3A%widgetadapter%22)
+[![Maven Central](https://img.shields.io/maven-central/v/de.welt/widgetAdapter.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22de.welt%22%20AND%20a%3A%widgetAdapter%22)
 # WidgetAdapter
 This is a small library that eases the management of adapters for ```RecyclerView```s especially if you use different item view types. It is written in Kotlin and intended to be used in Kotlin since it relies on some of its syntactic sugar.
 ## Install
