@@ -3,6 +3,27 @@
 # WidgetAdapter
 This is a small library that eases the management of adapters for ```RecyclerView```s especially if you use different item view types. It is written in Kotlin and intended to be used in Kotlin since it relies on some of its syntactic sugar.
 ## Install
+Release versions:
+```groovy
+repositories {
+    mavenCentral()
+}
+
+dependencies{
+    compile "de.welt:widgetAdapter:0.2"
+}
+```
+Snapshot versions:
+```groovy
+repositories {
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+
+dependencies{
+    compile "de.welt:widgetAdapter:0.3-SNAPSHOT"
+}
+```
+
 ## Usage
 All you need for the WidgetAdapter is a ```LayoutInflater``` and a set of providers that instantiate your ```Widget```s. ```Widget```s are your views that are wrapped by implementations of the ```Widget<T>``` interface.
 ### Create a WidgetAdapter
