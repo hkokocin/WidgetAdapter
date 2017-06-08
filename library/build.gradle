@@ -35,7 +35,7 @@ android {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "com.android.support:recyclerview-v7:25.2.0"
-    compile("com.github.hkokocin:androidkit:0.4-SNAPSHOT") { changing true }
+    compile("com.github.hkokocin:androidkit:0.5-SNAPSHOT") { changing true }
 
     testCompile "junit:junit:4.12"
     testCompile "org.mockito:mockito-inline:2.7.19"
