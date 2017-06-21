@@ -4,6 +4,7 @@
 This is a small library that eases the management of adapters for ```RecyclerView```s especially if you use different item view types. It is written in Kotlin and intended to be used in Kotlin since it relies on some of its syntactic sugar.
 ## Install
 Release versions:
+
 ```groovy
 repositories {
     mavenCentral()
@@ -13,7 +14,9 @@ dependencies{
     compile "de.welt:widgetAdapter:0.2"
 }
 ```
+
 Snapshot versions:
+
 ```groovy
 repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
@@ -27,15 +30,18 @@ dependencies{
 ## Usage
 All you need for the WidgetAdapter is a ```LayoutInflater``` and a set of providers that instantiate your ```Widget```s. ```Widget```s are your views that are wrapped by implementations of the ```Widget<T>``` interface.
 ### Create a WidgetAdapter
+
 ```kotlin
 val adapter = WidgetAdapter(LayoutInflater.from(context))
 adapter.addWidget { ListItemWidget() }        
 adapter.addWidget { SeparatorWidget() }        
 recyclerView.adapter = adapter
 ```
+
 Of course it would be a good practise to inject the adapter and the providers through the DI mechanism of your choice. 
 ### Create a Widget
 Your item views have to be mapped into ```Widget```s for the ```WidgetAdapter``` to match data types and view types. It uses ```setData(data: T)``` to update the data of a ```Widget```. Keep in mind, that your ```Widget``` might have been recycled and you might have to clean your view from its previous state.
+
 ```kotlin
 class YourWidget: Widget<String>{
     override val events = EventDispatcher()
@@ -52,8 +58,10 @@ class YourWidget: Widget<String>{
     }
 }
 ```
+
 ### Use the SimpleWidget
 For the implementation of your ```Widget```s you are free to use your preferred UI library like DataBinding, kotterknife and the like. However this library also comes with a convenient way to initialize your views and resources: the ```SimpleWidget```.
+
 ```kotlin
 class YourWidget: SimpleWidget<String>(R.layout.your_item_layout){
     override val events = EventDispatcher()
@@ -75,6 +83,7 @@ class YourWidget: SimpleWidget<String>(R.layout.your_item_layout){
     }
 }
 ```
+
 ### Handle events
 There is always the question on how to propagate events from items in RecyclerViews. That is what the ```EventDispatcher``` is for. You raise those events in your widgets and can add listeners to the same events on the adapter. For each event you should create a small ```data class``` although if there is only one type of event in your adapter you could also use the payload as event. However wrapping your payload not only provides some context that helps readability it also enables you to raise different events with the same payload e.g. if you want to provide a select and a delete event from the same ```Widget```.
 
@@ -97,11 +106,15 @@ class YourWidget: SimpleWidget<String>(R.layout.your_item_layout){
     ...
 }
 ```
+
 Listen to events:
+
 ```kotlin
 adapter.events.subscribe<ItemClickedEvent> { println(it.data) }
 ```
+
 If you want to be able to remove your listener manually later you can tag your listener and use this tag to remove it later. This tag can be any instance.
+
 ```kotlin
 adapter.events.subscribe<ItemClickedEvent> (this) { println(it.data) }
 
