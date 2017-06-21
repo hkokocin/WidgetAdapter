@@ -26,6 +26,7 @@ open class WidgetAdapter(
     inline fun <reified T : Any> addWidget(noinline widgetProvider: () -> Widget<T>) {
         val part = WidgetViewHolderProvider(layoutInflater, widgetProvider)
         events.delegate(part.events)
+        part.events.delegate(events)
         parts.put(T::class, part)
     }
 
