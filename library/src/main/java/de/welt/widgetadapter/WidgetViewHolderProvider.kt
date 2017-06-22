@@ -20,7 +20,6 @@ class WidgetViewHolderProvider<T, W : Widget<T>>(
     fun onCreateViewHolder(parent: ViewGroup?): RecyclerView.ViewHolder {
         val widget = widgetProvider()
         events.delegate(widget.events)
-        widget.events.delegate(events)
         return WidgetViewHolder(widget, widget.createView(inflater, parent))
     }
 }
