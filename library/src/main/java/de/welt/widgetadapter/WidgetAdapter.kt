@@ -11,22 +11,14 @@ open class WidgetAdapter(
         val layoutInflater: LayoutInflater
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val events = EventDispatcher()
-
-    var parts = LinkedHashMap<KClass<out Any>, WidgetViewHolderProvider<*, *>>()
-        set(value) {
-            field = value
-            field.forEach { events.delegate(it.value.events) }
-        }
+    var widgetProviders = LinkedHashMap<Class<out Any>, () -> Widget<*>>()
 
     var areItemsTheSame: SimpleDiffCallback.(Any, Any) -> Boolean = { old, new -> old == new }
 
     private var items = listOf<Any>()
 
     inline fun <reified T : Any> addWidget(noinline widgetProvider: () -> Widget<T>) {
-        val part = WidgetViewHolderProvider(layoutInflater, widgetProvider)
-        events.delegate(part.events)
-        parts.put(T::class, part)
+        widgetProviders.put(T::class.java, widgetProvider)
     }
 
     fun setItems(items: List<Any>) {
@@ -52,27 +44,21 @@ open class WidgetAdapter(
         return items.size
     }
 
-    override fun getItemViewType(position: Int): Int {
-        val part = getPartAt(position)
-        return parts.values.indexOf(part)
-    }
+    override fun getItemViewType(position: Int) = widgetProviders.keys.indexOf(items[position].javaClass)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val part = getPartAt(position)
-        part.onBindViewHolder(holder, items[position])
+        bindViewHolder(holder, items[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        val part = parts.values.elementAt(viewType)
-        return part.onCreateViewHolder(parent)
+        val provider = widgetProviders.values.elementAt(viewType)
+        val widget = provider()
+        return WidgetViewHolder(widget, widget.createView(layoutInflater, parent))
     }
 
-    private fun getPartAt(position: Int): WidgetViewHolderProvider<*, *> {
-        val item = items[position]
-        val part = parts[item.javaClass.kotlin]
-
-        part ?: throw IllegalStateException("No AdapterPart found for item type ${items[position].javaClass.name}")
-
-        return part
+    @Suppress("UNCHECKED_CAST")
+    private fun <T> bindViewHolder(holder: RecyclerView.ViewHolder, item: T) {
+        val viewHolder = holder as WidgetViewHolder<T>
+        viewHolder.widget.setData(item as T)
     }
 }
