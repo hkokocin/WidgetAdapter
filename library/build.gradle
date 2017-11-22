@@ -32,7 +32,6 @@ android {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "com.android.support:design:27.0.0"
     compile "com.android.support:recyclerview-v7:27.0.0"
 
     testCompile "junit:junit:4.12"

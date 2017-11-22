@@ -4,21 +4,7 @@ import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.support.design.widget.Snackbar
-import android.view.View
 import kotlin.reflect.KClass
-
-fun View.snackbar(message: CharSequence, duration: Int = Snackbar.LENGTH_LONG, init: Snackbar.() -> Unit = {}) {
-    val snackBar = Snackbar.make(this, message, duration)
-    snackBar.init()
-    snackBar.show()
-}
-
-fun View.snackbar(messageId: Int, duration: Int = Snackbar.LENGTH_LONG, init: Snackbar.() -> Unit = {}) {
-    val snackBar = Snackbar.make(this, messageId, duration)
-    snackBar.init()
-    snackBar.show()
-}
 
 @Suppress("UNCHECKED_CAST", "DEPRECATION")
 fun <T : Any> getResource(resources: Resources, resourceId: Int, type: KClass<T>) = when (type) {
