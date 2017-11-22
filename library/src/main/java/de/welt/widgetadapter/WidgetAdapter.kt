@@ -36,13 +36,11 @@ open class WidgetAdapter(
     }
 
     fun swapItems(fromPosition: Int, toPosition: Int) {
-        Collections.swap(getItems(), fromPosition, toPosition)
+        Collections.swap(items, fromPosition, toPosition)
         notifyItemMoved(fromPosition, toPosition)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount() = items.size
 
     override fun getItemViewType(position: Int) = widgetProviders.keys.indexOf(items[position].javaClass)
 
