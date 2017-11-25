@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies{
-    compile "de.welt:widgetAdapter:0.2"
+    compile "de.welt:widgetAdapter:0.4"
 }
 ```
 
@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies{
-    compile "de.welt:widgetAdapter:0.3-SNAPSHOT"
+    compile "de.welt:widgetAdapter:0.4-SNAPSHOT"
 }
 ```
 
@@ -39,6 +39,32 @@ recyclerView.adapter = adapter
 ```
 
 Of course it would be a good practise to inject the adapter and the providers through the DI mechanism of your choice. 
+
+### Updating items
+
+There are two different ways to set items on the `WidgetAdapter`.
+
+```kotlin
+adapter.setItems(items)
+
+adapter.updateItems(items)
+```
+
+`setItems` Simply overwrites all items and recreates all views. `updateItems` on the other hand uses the [DiffUtil](https://developer.android.com/reference/android/support/v7/util/DiffUtil.html) to calculate a diff between old and new state and animate insertions, movements etc. By default `areItemsTheSame` and `areContentsTheSame` use equals checks so make sure to use data classes for your items. You can override `areItemsTheSame` if you have to be more specific:
+
+```kotlin
+adapter.areItemsTheSame = { oldItem, newItem -> 
+    if(oldItem is Identifiable and newItem is Identifiable)
+        oldItem.id == newItem.id
+    else
+        oldItem == newItem
+}
+
+interface Identifiable{
+    val id: Int
+}
+```
+
 ### Create a Widget
 Your item views have to be mapped into ```Widget```s for the ```WidgetAdapter``` to match data types and view types. It uses ```setData(data: T)``` to update the data of a ```Widget```. Keep in mind, that your ```Widget``` might have been recycled and you might have to clean your view from its previous state.
 
