@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies{
-    compile "de.welt:widgetAdapter:0.4"
+    implementation "de.welt:widgetAdapter:0.4"
 }
 ```
 
@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies{
-    compile "de.welt:widgetAdapter:0.4-SNAPSHOT"
+    implementation "de.welt:widgetAdapter:0.4-SNAPSHOT"
 }
 ```
 
