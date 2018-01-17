@@ -53,7 +53,11 @@ open class WidgetAdapter(
         return WidgetViewHolder(widget, widget.createView(layoutInflater, parent))
     }
 
-    private val List<Any>.validItems: List<Any> get() = filter { widgetProviders.contains(it.javaClass) }
+    private val List<Any>.validItems: List<Any>
+        get() {
+            if (widgetProviders.isEmpty()) throw IllegalStateException("You have to add widget providers before you set items.")
+            return filter { widgetProviders.contains(it.javaClass) }
+        }
 
     @Suppress("UNCHECKED_CAST")
     private fun <T> bindViewHolder(holder: RecyclerView.ViewHolder, item: T) {
