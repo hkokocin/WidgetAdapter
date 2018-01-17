@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import java.util.*
-import kotlin.reflect.KClass
 
 open class WidgetAdapter(
         val layoutInflater: LayoutInflater
@@ -22,7 +21,7 @@ open class WidgetAdapter(
     }
 
     fun setItems(items: List<Any>) {
-        this.items = items
+        this.items = items.validItems
         notifyDataSetChanged()
     }
 
@@ -30,8 +29,8 @@ open class WidgetAdapter(
 
     fun updateItems(items: List<Any>) {
         val oldItems = this.items
-        this.items = items
-        DiffUtil.calculateDiff(SimpleDiffCallback(items, oldItems, areItemsTheSame))
+        this.items = items.validItems
+        DiffUtil.calculateDiff(SimpleDiffCallback(this.items, oldItems, areItemsTheSame))
                 .dispatchUpdatesTo(this)
     }
 
@@ -53,6 +52,8 @@ open class WidgetAdapter(
         val widget = provider()
         return WidgetViewHolder(widget, widget.createView(layoutInflater, parent))
     }
+
+    private val List<Any>.validItems: List<Any> get() = filter { widgetProviders.contains(it.javaClass) }
 
     @Suppress("UNCHECKED_CAST")
     private fun <T> bindViewHolder(holder: RecyclerView.ViewHolder, item: T) {
