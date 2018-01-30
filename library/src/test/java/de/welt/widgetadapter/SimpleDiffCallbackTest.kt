@@ -16,9 +16,10 @@ internal class SimpleDiffCallbackTest {
 
     val newItems = listOf(newItem)
     val oldItems = listOf(oldItem)
-    val areItemsTheSame: SimpleDiffCallback.(Any, Any) -> Boolean = mock()
+    val areItemsTheSame: (Any, Any) -> Boolean = mock()
+    val areContentsTheSame: (Any, Any) -> Boolean = mock()
 
-    val classToTest = SimpleDiffCallback(newItems, oldItems, areItemsTheSame)
+    val classToTest = SimpleDiffCallback(newItems, oldItems, areItemsTheSame, areContentsTheSame)
 
     @Test
     fun canGetOldListSize() {
@@ -31,19 +32,22 @@ internal class SimpleDiffCallbackTest {
     }
 
     @Test
-    fun doSimpleEqualsCheckToDetermineIfContentsAreTheSame() {
-        given(areItemsTheSame.invoke(eq(classToTest), any(), any())).willReturn(true)
-
-        classToTest.areItemsTheSame(0, 0).should.be.equal(true)
-    }
-
-    @Test
     fun useCallbackToDetermineIfItemsAreTheSame() {
-        given(areItemsTheSame.invoke(eq(classToTest), any(), any())).willReturn(true)
+        given(areItemsTheSame.invoke(any(), any())).willReturn(true)
 
         classToTest.areItemsTheSame(0, 0)
 
-        then(areItemsTheSame).should().invoke(same(classToTest)!!, same(oldItem)!!, same(newItem)!!)
+        then(areItemsTheSame).should().invoke(same(oldItem)!!, same(newItem)!!)
+    }
+
+
+    @Test
+    fun useCallbackToDetermineIfItemsAreEqual() {
+        given(areContentsTheSame.invoke(any(), any())).willReturn(true)
+
+        classToTest.areContentsTheSame(0, 0)
+
+        then(areContentsTheSame).should().invoke(same(oldItem)!!, same(newItem)!!)
     }
 }
 
