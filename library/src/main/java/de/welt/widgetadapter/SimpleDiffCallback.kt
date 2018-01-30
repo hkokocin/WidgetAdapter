@@ -5,7 +5,8 @@ import android.support.v7.util.DiffUtil
 class SimpleDiffCallback(
         val newItems: List<Any>,
         val oldItems: List<Any>,
-        val areItemsTheSame: SimpleDiffCallback.(Any, Any) -> Boolean
+        val areItemsTheSame: (Any, Any) -> Boolean,
+        val areContentsTheSame: (Any, Any) -> Boolean
 ) : DiffUtil.Callback() {
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
@@ -16,5 +17,5 @@ class SimpleDiffCallback(
     override fun getNewListSize() = newItems.size
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-        newItems[newItemPosition] == oldItems[oldItemPosition]
+        areContentsTheSame(oldItems[oldItemPosition], newItems[newItemPosition])
 }

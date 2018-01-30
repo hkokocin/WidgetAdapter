@@ -12,7 +12,8 @@ open class WidgetAdapter(
 
     var widgetProviders = LinkedHashMap<Class<out Any>, () -> Widget<*>>()
 
-    var areItemsTheSame: SimpleDiffCallback.(Any, Any) -> Boolean = { old, new -> old == new }
+    var areItemsTheSame: (Any, Any) -> Boolean = { old, new -> old == new }
+    var areContentsTheSame: (Any, Any) -> Boolean = { old, new -> old == new }
 
     private var items = listOf<Any>()
 
@@ -30,7 +31,7 @@ open class WidgetAdapter(
     fun updateItems(items: List<Any>) {
         val oldItems = this.items
         this.items = items.validItems
-        DiffUtil.calculateDiff(SimpleDiffCallback(this.items, oldItems, areItemsTheSame))
+        DiffUtil.calculateDiff(SimpleDiffCallback(this.items, oldItems, areItemsTheSame, areContentsTheSame))
                 .dispatchUpdatesTo(this)
     }
 
