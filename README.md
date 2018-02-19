@@ -50,7 +50,7 @@ adapter.setItems(items)
 adapter.updateItems(items)
 ```
 
-`setItems` Simply overwrites all items and recreates all views. `updateItems` on the other hand uses the [DiffUtil](https://developer.android.com/reference/android/support/v7/util/DiffUtil.html) to calculate a diff between old and new state and animate insertions, movements etc. By default `areItemsTheSame` and `areContentsTheSame` use equals checks so make sure to use data classes for your items. You can override `areItemsTheSame` if you have to be more specific:
+`setItems` Simply overwrites all items and recreates all views. `updateItems` on the other hand uses the [DiffUtil](https://developer.android.com/reference/android/support/v7/util/DiffUtil.html) to calculate a diff between old and new state and animate insertions, movements etc. By default `areItemsTheSame` and `areContentsTheSame` use equals checks so make sure to use data classes for your items. You can override both if you have to be more specific, e.g. :
 
 ```kotlin
 adapter.areItemsTheSame = { oldItem, newItem -> 
