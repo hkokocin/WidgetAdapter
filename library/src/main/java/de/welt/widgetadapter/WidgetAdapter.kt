@@ -74,17 +74,17 @@ open class WidgetAdapter(
         }
 
     private fun List<Any>.applyCollapsedState(): List<Any> {
-        val collapsedStates = this
+        val collapsedGroups = this
                 .filterIsInstance<CollapsableGroupHeaderWidgetData>()
-                .map { it.collapsableGroupId to it.isCollapsed }
-                .toMap()
+                .filter { it.isCollapsed }
+                .map { it.collapsableGroupId }
 
-        return this.filter { widgetProviders.contains(it.javaClass) && it.isNotCollapsed(collapsedStates) }
+        return this.filter { widgetProviders.contains(it.javaClass) && it.isNotCollapsed(collapsedGroups) }
     }
 
-    private fun Any.isNotCollapsed(collapsedStates: Map<String, Boolean>): Boolean {
-        val id = (this as? CollapsableWidgetData)?.collapsableGroupId ?: return false
-        return collapsedStates[id] ?: false
+    private fun Any.isNotCollapsed(collapsedGroups: List<String>): Boolean {
+        val id = (this as? CollapsableWidgetData)?.collapsableGroupId ?: return true
+        return !collapsedGroups.contains(id)
     }
 
     @Suppress("UNCHECKED_CAST")
