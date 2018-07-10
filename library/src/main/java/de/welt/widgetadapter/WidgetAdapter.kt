@@ -13,9 +13,6 @@ open class WidgetAdapter(
     var supportsCollapsableGroups: Boolean = false
     var widgetProviders = LinkedHashMap<Class<out Any>, () -> Widget<*>>()
 
-    var areItemsTheSame: (Any, Any) -> Boolean = { old, new -> old == new }
-    var areContentsTheSame: (Any, Any) -> Boolean = { old, new -> old == new }
-
     private var allItems = listOf<Any>()
     private var visibleItems = listOf<Any>()
 
@@ -33,7 +30,7 @@ open class WidgetAdapter(
     fun updateItems(items: List<Any>) {
         val oldItems = this.visibleItems
         doSetItems(items)
-        DiffUtil.calculateDiff(SimpleDiffCallback(this.visibleItems, oldItems, areItemsTheSame, areContentsTheSame))
+        DiffUtil.calculateDiff(SimpleDiffCallback(this.visibleItems, oldItems))
                 .dispatchUpdatesTo(this)
     }
 
@@ -56,6 +53,12 @@ open class WidgetAdapter(
         val provider = widgetProviders.values.elementAt(viewType)
         val widget = provider()
         return WidgetViewHolder(widget, widget.createView(layoutInflater, parent))
+    }
+
+    override fun onViewRecycled(holder: RecyclerView.ViewHolder?) {
+        super.onViewRecycled(holder)
+        val viewHolder = holder as WidgetViewHolder<*>
+        viewHolder.widget.onViewRecycled()
     }
 
     private fun doSetItems(items: List<Any>) {
@@ -89,7 +92,9 @@ open class WidgetAdapter(
 
     @Suppress("UNCHECKED_CAST")
     private fun <T> bindViewHolder(holder: RecyclerView.ViewHolder, item: T) {
-        val viewHolder = holder as WidgetViewHolder<T>
-        viewHolder.widget.setData(item as T)
+        (holder as WidgetViewHolder<T>).widget.apply {
+            setData(item as T)
+            onViewBound()
+        }
     }
 }

@@ -23,6 +23,9 @@ abstract class Widget<T>(@field:LayoutRes private val layoutId: Int) {
         return view
     }
 
+    open fun onViewRecycled() {}
+    open fun onViewBound() {}
+
     open protected fun onViewCreated(view: View) {}
 
     protected fun <T : View> viewId(@IdRes id: Int): Lazy<T> = lazy { view.findViewById<T>(id) }
