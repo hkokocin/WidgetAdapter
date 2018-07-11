@@ -3,8 +3,8 @@ package de.welt.widgetadapter
 import android.support.v7.util.DiffUtil
 
 interface Diffable {
-    fun areItemsTheSame(other: Any): Boolean = other == this
-    fun areContentsTheSame(other: Any): Boolean = other == this
+    fun isItemTheSame(other: Any): Boolean = other == this
+    fun isContentTheSame(other: Any): Boolean = other == this
 }
 
 class SimpleDiffCallback(
@@ -17,7 +17,7 @@ class SimpleDiffCallback(
         val newItem = newItems[newItemPosition]
 
         return if (oldItem is Diffable)
-            oldItem.areItemsTheSame(newItem)
+            oldItem.isItemTheSame(newItem)
         else
             oldItem == newItem
     }
@@ -31,7 +31,7 @@ class SimpleDiffCallback(
         val newItem = newItems[newItemPosition]
 
         return if (oldItem is Diffable)
-            oldItem.areContentsTheSame(newItem)
+            oldItem.isContentTheSame(newItem)
         else
             oldItem == newItem
     }

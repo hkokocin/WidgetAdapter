@@ -49,13 +49,13 @@ open class WidgetAdapter(
         bindViewHolder(holder, visibleItems[position])
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val provider = widgetProviders.values.elementAt(viewType)
         val widget = provider()
         return WidgetViewHolder(widget, widget.createView(layoutInflater, parent))
     }
 
-    override fun onViewRecycled(holder: RecyclerView.ViewHolder?) {
+    override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
         super.onViewRecycled(holder)
         val viewHolder = holder as WidgetViewHolder<*>
         viewHolder.widget.onViewRecycled()
